@@ -1,3 +1,5 @@
+package model;
+
 public class Kunde {
     private String name;
     private String kundennr;
