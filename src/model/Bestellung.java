@@ -24,4 +24,17 @@ public class Bestellung {
     public void addBauteil(Bauteil bauteil, int anzahl) {
         bauteilListe.merge(bauteil, anzahl, Integer::sum);
     }
+
+    public  void addBauteil(String bezeichnung, String material, int anzahl) {
+        Bauteil bauteil = new Bauteil(bezeichnung, material);
+        addBauteil(bauteil, anzahl);
+    }
+
+    @Override
+    public String toString() {
+        return "Bestellung{" +
+                "kunde=" + kunde +
+                ", bauteilListe=" + bauteilListe +
+                '}';
+    }
 }

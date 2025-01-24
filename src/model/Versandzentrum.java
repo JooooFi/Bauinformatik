@@ -3,8 +3,8 @@ package model;
 import java.util.*;
 
 public class Versandzentrum {
-    private String name;
-    private List<Warenlager> warenlagerListe;
+    private final String name;
+    private final List<Warenlager> warenlagerListe;
 
     public Versandzentrum(String name) {
         this.name = name;
@@ -15,10 +15,12 @@ public class Versandzentrum {
         warenlagerListe.add(warenlager);
     }
 
+    // 2 Berechnung der Anzahl fehlender Bauteile
+    //
     public Map<Bauteil, Integer> berechneFehlendeBauteile(Bestellung bestellung) {
         Map<Bauteil, Integer> fehlendeBauteile = new HashMap<>();
 
-        for (Map.Entry<Bauteil, Integer> entry : bestellung.getBauteilListe().entrySet()) {
+        for (Map.Entry<Bauteil, Integer> entry : bestellung.getBauteilListe().entrySet()) { //alle benötigen Bauteile werden nacheinander gelesen
             Bauteil bauteil = entry.getKey();
             int benoetigteAnzahl = entry.getValue();
 
@@ -38,34 +40,26 @@ public class Versandzentrum {
         return fehlendeBauteile;
     }
 
+    //gibt eine Liste zurück mit dem Warenlager, die das jeweilige Bauteil besitzen. Ordnet nach der Distanz
     public List<Warenlager> getWarenlagerListeBeiDistanz(Map<Bauteil, Integer> orderlist) {
-        List<Warenlager> list = new ArrayList<>();
-        int bestand = 0;
-        for (Bauteil b : orderlist.keySet()) {
-            for (Warenlager lager : warenlagerListe) {
-                if (lager.durchsuchen(b) != 0) {
-                    list.add(lager);
-                    bestand += lager.getBestand().get(b);
-                }
-                int bauteilBestand = orderlist.get(b);
-                if (bestand < bauteilBestand) {
-                    System.out.println("Warnung: Nicht genügend Bestand für model.Bauteil " +
-                            b.getBezeichnung() + " (" + b.getMaterial() +
-                            "). Fehlender Restbetrag: " + (bauteilBestand - bestand));
-                }
-            }
-
-        }
-
-        list.sort(Comparator.comparingInt(Warenlager::getEntfernung));
-
+        List<Warenlager> list = getWarenlagerListe(orderlist);
+        list.sort(Comparator.comparingInt(Warenlager::getEntfernung)); //sortiert anhand des Integers von getEntfernung. der kleinste wert als erstes.
         return list;
     }
 
+    //gibt eine Liste zurück mit dem Warenlager, die das jeweilige Bauteil besitzen. Geordnet nach der Kapazität
     public List<Warenlager> getWarenlagerListeBeiKapa(Map<Bauteil, Integer> orderlist) {
+        List<Warenlager> list = getWarenlagerListeBeiDistanz(orderlist);
+        list.sort(Comparator.comparingInt(Warenlager::getKapazitaetsauslastung).reversed()); //sortiert anhand des Integers von getkapazität. der größte wert als Erstes.
+        return list;
+    }
+
+    //um Redundanzen zu verhindern wurde der code ausgelagert.
+    private List<Warenlager> getWarenlagerListe(Map<Bauteil, Integer> orderlist) {
         List<Warenlager> list = new ArrayList<>();
-        int bestand = 0;
         for (Bauteil b : orderlist.keySet()) {
+            System.out.println("Benoetiges Bauteil: " +b.toString()+ ". Folgende Warenlager haben es:");
+            int bestand = 0;
             for (Warenlager lager : warenlagerListe) {
                 if (lager.durchsuchen(b) != 0) {
                     list.add(lager);
@@ -80,9 +74,20 @@ public class Versandzentrum {
                         "). Fehlender Restbetrag: " + (bauteilBestand - bestand));
             }
         }
-
-        list.sort(Comparator.comparingInt(Warenlager::getKapazitaetsauslastung).reversed());
-
         return list;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Versandzentrum:\n ").append(name).append("\n");
+        sb.append("Warenlager:\n");
+
+        for (Warenlager lager : warenlagerListe) {
+            sb.append(lager.toString()).append("\n"); // Nutzt die toString() von Warenlager
+        }
+
+        return sb.toString();
+    }
+
 }

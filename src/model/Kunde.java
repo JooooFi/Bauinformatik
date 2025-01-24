@@ -1,8 +1,8 @@
 package model;
 
 public class Kunde {
-    private String name;
-    private String kundennr;
+    private final String name;
+    private final String kundennr;
 
     public Kunde(String name, String kundennr) {
         this.name = name;
@@ -13,15 +13,15 @@ public class Kunde {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getKundennr() {
         return kundennr;
     }
 
-    public void setKundennr(String kundennr) {
-        this.kundennr = kundennr;
+    @Override
+    public String toString() {
+        return "Kunde{" +
+                "name='" + name + '\'' +
+                ", kundennr='" + kundennr + '\'' +
+                '}';
     }
 }

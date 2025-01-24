@@ -3,8 +3,8 @@ package model;
 import java.util.Objects;
 
 public class Bauteil {
-    private String bezeichnung;
-    private String material;
+    private final String bezeichnung;
+    private final String material;
 
     public Bauteil(String bezeichnung, String material) {
         this.bezeichnung = bezeichnung;
@@ -15,17 +15,11 @@ public class Bauteil {
         return bezeichnung;
     }
 
-    public void setBezeichnung(String bezeichnung) {
-        this.bezeichnung = bezeichnung;
-    }
 
     public String getMaterial() {
         return material;
     }
 
-    public void setMaterial(String material) {
-        this.material = material;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -40,5 +34,13 @@ public class Bauteil {
     @Override
     public int hashCode() {
         return Objects.hash(bezeichnung, material);
+    }
+
+    @Override
+    public String toString() {
+        return "Bauteil{" +
+                "Bezeichnung='" + bezeichnung + '\'' +
+                ", Material='" + material + '\'' +
+                '}';
     }
 }

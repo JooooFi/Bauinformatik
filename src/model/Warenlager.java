@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Warenlager {
-    private String name;
-    private Map<Bauteil, Integer> bestand;
-    private int entfernung;
+    private final String name;
+    private final Map<Bauteil, Integer> bestand;
+    private final int entfernung;
     private int kapazitaetsauslastung;
 
     // Konstruktor, Getter und Setter
@@ -25,10 +25,15 @@ public class Warenlager {
         bestand.merge(bauteil, anzahl, Integer::sum);
     }
 
+    public void addBauteil(String bezeichnung, String material, int anzahl) {
+        Bauteil b = new Bauteil(bezeichnung, material);
+        addBauteil(b, anzahl);
+    }
+
     public int durchsuchen(Bauteil bauteil) {
         if (bestand.containsKey(bauteil)) {
             return bestand.getOrDefault(bauteil, 0);
-        };
+        }
         return 0;
     }
 
@@ -39,5 +44,24 @@ public class Warenlager {
     public int getKapazitaetsauslastung() {
         return kapazitaetsauslastung;
     }
+
+    public void setKapazitaetsauslastung(int kapazitaetsauslastung) {
+        this.kapazitaetsauslastung = kapazitaetsauslastung;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String toString() {
+        return "Warenlager{" +
+                "Name='" + name + '\'' +
+                ", Entfernung=" + entfernung +
+                ", Kapazitätsauslastung=" + kapazitaetsauslastung +
+                ", Bestand=" + bestand +
+                '}';
+    }
+
 }
 
