@@ -22,7 +22,8 @@ public class Warenlager {
     }
 
     public void addBauteil(Bauteil bauteil, int anzahl) {
-        bestand.merge(bauteil, anzahl, Integer::sum);
+        bestand.merge(bauteil, anzahl, Integer::sum); //wenn das Bauteil schon vorhanden ist, wird die Anzahl
+        // summiert ansonsten das Objekt wird hinzugefügt
     }
 
     public void addBauteil(String bezeichnung, String material, int anzahl) {
@@ -45,6 +46,7 @@ public class Warenlager {
         return kapazitaetsauslastung;
     }
 
+    //Kapazitätsauslastung wird gesetzt. Diese ist nicht fest.
     public void setKapazitaetsauslastung(int kapazitaetsauslastung) {
         this.kapazitaetsauslastung = kapazitaetsauslastung;
     }
