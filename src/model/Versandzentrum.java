@@ -5,16 +5,33 @@ import java.util.*;
 public class Versandzentrum {
     private final String name; //unveränderebarer String
     private final List<Warenlager> warenlagerListe;
+    private List<Bestellung> bestellungListe;
 
     //Konstruktor
     public Versandzentrum(String name) {
         this.name = name;
         this.warenlagerListe = new ArrayList<>();
+        this.bestellungListe = new ArrayList<>();
     }
 
     public void addWarenlager(Warenlager warenlager) {
         warenlagerListe.add(warenlager); //fügt ein Warenlager in die Liste hinzu
     }
+
+    public void addBestellung(Bestellung neueBestellung) {
+        for (Bestellung vorhandeneBestellung : bestellungListe) {
+            if (vorhandeneBestellung.getKunde().equals(neueBestellung.getKunde())) {
+                // Falls eine Bestellung für diesen Kunden existiert, Bauteile zusammenführen
+                for (Map.Entry<Bauteil, Integer> entry : neueBestellung.getBauteilListe().entrySet()) {
+                    vorhandeneBestellung.addBauteil(entry.getKey(), entry.getValue());
+                }
+                return; // Bestellliste nicht erneut hinzufügen
+            }
+        }
+        // Falls keine Bestellung für den Kunden existiert, neue Bestellung hinzufügen
+        bestellungListe.add(neueBestellung);
+    }
+
 
     // 2 Berechnung der Anzahl fehlender Bauteile
     //

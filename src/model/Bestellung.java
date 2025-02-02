@@ -18,7 +18,7 @@ public class Bestellung {
     }
 
     public Map<Bauteil, Integer> getBauteilListe() {
-        return bauteilListe; //gibt das Bauteile mit deren Anzahl zurück
+        return bauteilListe; //gibt die Bauteile mit dessen Anzahl zurück
     }
 
     public void addBauteil(Bauteil bauteil, int anzahl) {

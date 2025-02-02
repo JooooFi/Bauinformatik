@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 public class Kunde {
     private final String name;
     private final String kundennr;
@@ -18,10 +20,15 @@ public class Kunde {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Kunde kunde = (Kunde) o;
+        return Objects.equals(name, kunde.name) && Objects.equals(kundennr, kunde.kundennr);
+        // wenn kundennr gleich ist und der name des kunden gleich mit den verglichen objekt wird true zurückgegeben
+    }
+
+    @Override
     public String toString() {
-        return "Kunde{" +
-                "name='" + name + '\'' +
-                ", kundennr='" + kundennr + '\'' +
-                '}';
+        return "Kunde{" + "name='" + name + '\'' + ", kundennr='" + kundennr + '\'' + '}';
     }
 }
