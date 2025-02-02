@@ -18,15 +18,17 @@ public class Bestellung {
     }
 
     public Map<Bauteil, Integer> getBauteilListe() {
-        return bauteilListe;
+        return bauteilListe; //gibt das Bauteile mit deren Anzahl zurück
     }
 
     public void addBauteil(Bauteil bauteil, int anzahl) {
-        bauteilListe.merge(bauteil, anzahl, Integer::sum);
+        bauteilListe.merge(bauteil, anzahl, Integer::sum); //wenn das Bauteil schon vorhanden ist, wird die Anzahl
+        // addiert ansonsten das Objekt wird hinzugefügt
+        // Integer::sum ist eine Methode, die zwei Integer addiert
     }
 
     public  void addBauteil(String bezeichnung, String material, int anzahl) {
-        Bauteil bauteil = new Bauteil(bezeichnung, material);
+        Bauteil bauteil = new Bauteil(bezeichnung, material); //neues Bauteil wird erstellt
         addBauteil(bauteil, anzahl);
     }
 

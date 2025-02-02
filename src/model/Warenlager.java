@@ -17,6 +17,7 @@ public class Warenlager {
         this.kapazitaetsauslastung = kapazitaetsauslastung;
     }
 
+    // gibt den Bestand hinzu, der vorher in der Map gespeichert wurde
     public Map<Bauteil, Integer> getBestand() {
         return bestand;
     }
@@ -31,9 +32,11 @@ public class Warenlager {
         addBauteil(b, anzahl);
     }
 
+    //Durchsucht das Warenlager nach einem Bauteil und gibt die Anzahl zurück
     public int durchsuchen(Bauteil bauteil) {
-        if (bestand.containsKey(bauteil)) {
+        if (bestand.containsKey(bauteil)) { //wenn das Bauteil vorhanden ist, wird die Anzahl zurückgegeben
             return bestand.getOrDefault(bauteil, 0);
+
         }
         return 0;
     }
@@ -46,7 +49,7 @@ public class Warenlager {
         return kapazitaetsauslastung;
     }
 
-    //Kapazitätsauslastung wird gesetzt. Diese ist nicht fest.
+    //Kapazitätsauslastung wird gesetzt. Dies ist nicht fest.
     public void setKapazitaetsauslastung(int kapazitaetsauslastung) {
         this.kapazitaetsauslastung = kapazitaetsauslastung;
     }
