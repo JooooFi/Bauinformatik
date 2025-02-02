@@ -68,6 +68,8 @@ public class MainA {
         versandzentrum.addWarenlager(warenlagerA);
         versandzentrum.addWarenlager(warenlagerB);
         versandzentrum.addWarenlager(warenlagerC);
+        versandzentrum.addBestellung(bestellungA);
+        versandzentrum.addBestellung(bestellungB);
         System.out.println("Versandzentrum 1:"+ versandzentrum);
 
         //zeigt an welche Bauteile fehlen. der erste wert ist der Adressname des objects

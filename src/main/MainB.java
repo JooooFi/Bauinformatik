@@ -93,6 +93,10 @@ public class MainB {
         bestellung4.addBauteil("Mauerziegel", "Mz 10", 430);
         System.out.println("Bestellung 4: "+bestellung4 +"\n");
 
+        versandzentrum.addBestellung(bestellung4);
+        versandzentrum.addBestellung(bestellung3);
+        versandzentrum.addBestellung(bestellung2);
+        versandzentrum.addBestellung(bestellung1);
         //fehlendeBauteile ->Defizit bei
         Map<Bauteil, Integer> bauteile = versandzentrum.berechneFehlendeBauteile(bestellung2);
         for (Bauteil b :bauteile.keySet()){
